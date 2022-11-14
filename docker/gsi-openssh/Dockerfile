@@ -1,4 +1,5 @@
-FROM centos:8
+#FROM centos:8
+FROM quay.io/centos/centos:stream8
 
 RUN set -x && \
 	yum -y install wget openssl epel-release && \
