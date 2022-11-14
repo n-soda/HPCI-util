@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cert_dir=/etc/grid-security/certificates
+master_site=https://www.hpci.nii.ac.jp/ca
+
+set -x
+
+cd "${cert_dir}" &&
+wget "${master_site}/hpcica.pem" &&
+wget "${master_site}/hpcica.crl" &&
+hash=`openssl x509 -in hpcica.pem -noout -hash` &&
+wget "${master_site}/${hash}".signing_policy &&
+ln -s hpcica.pem "${hash}".0 &&
+ln -s hpcica.crl "${hash}".r0
